@@ -236,6 +236,7 @@ class InternationalMelonOrder(AbstractMelonOrder):
 # in get_total method.
 
 import random
+import datetime
 
 class AbstractMelonOrder():
     """An abstract base class that other Melon Orders inherit from."""
@@ -244,6 +245,10 @@ class AbstractMelonOrder():
     """Initialize melon order attributes."""
 
         self.species = species
+
+        if qty > 100:
+            raise TooManyMelonsError
+            
         self.qty = qty
         self.order_type = order_type
         self.tax = tax
@@ -253,6 +258,11 @@ class AbstractMelonOrder():
     """Calculate base price using splurge pricing."""
 
         base_price = random.randrange(5, 10)
+
+        now = datetime.datetime.now()
+
+        if now.hour >= 8 and now.hour <= 11 and now.weekday() < 5:
+            base_price += 4
 
         return base_price
 
