@@ -5,7 +5,7 @@
 #     """A melon order within the USA."""
 
 #     def __init__(self, species, qty):
-#         """Initialize melon order attributes."""
+#     """Initialize melon order attributes."""
 
 #         self.species = species
 #         self.qty = qty
@@ -14,7 +14,7 @@
 #         self.tax = 0.08
 
 #     def get_total(self):
-#         """Calculate price, including tax."""
+#     """Calculate price, including tax."""
 
 #         base_price = 5
 #         total = (1 + self.tax) * self.qty * base_price
@@ -22,7 +22,7 @@
 #         return total
 
 #     def mark_shipped(self):
-#         """Record the fact than an order has been shipped."""
+#     """Record the fact than an order has been shipped."""
 
 #         self.shipped = True
 
@@ -31,7 +31,7 @@
 #     """An international (non-US) melon order."""
 
 #     def __init__(self, species, qty, country_code):
-#         """Initialize melon order attributes."""
+#     """Initialize melon order attributes."""
 
 #         self.species = species
 #         self.qty = qty
@@ -41,7 +41,7 @@
 #         self.tax = 0.17
 
 #     def get_total(self):
-#         """Calculate price, including tax."""
+#     """Calculate price, including tax."""
 
     #     base_price = 5
     #     total = (1 + self.tax) * self.qty * base_price
@@ -49,7 +49,7 @@
     #     return total
 
     # def mark_shipped(self):
-    #     """Record the fact than an order has been shipped."""
+    # """Record the fact than an order has been shipped."""
 
     #     self.shipped = True
 
@@ -65,7 +65,7 @@ class AbstractMelonOrder():
     """An abstract base class that other Melon Orders inherit from."""
 
     def __init__(self, species, qty, order_type, tax):
-        """Initialize melon order attributes."""
+    """Initialize melon order attributes."""
 
         self.species = species
         self.qty = qty
@@ -102,7 +102,7 @@ class InternationalMelonOrder(AbstractMelonOrder):
         self.country_code = country_code
 
     def get_country_code(self):
-      """Return the country code."""
+    """Return the country code."""
 
         return self.country_code
 
@@ -115,7 +115,7 @@ class AbstractMelonOrder():
     """An abstract base class that other Melon Orders inherit from."""
 
     def __init__(self, species, qty, order_type, tax):
-        """Initialize melon order attributes."""
+    """Initialize melon order attributes."""
 
         self.species = species
         self.qty = qty
@@ -159,7 +159,7 @@ class InternationalMelonOrder(AbstractMelonOrder):
         self.country_code = country_code
 
     def get_country_code(self):
-      """Return the country code."""
+    """Return the country code."""
 
         return self.country_code   
 
@@ -170,7 +170,7 @@ class AbstractMelonOrder():
     """An abstract base class that other Melon Orders inherit from."""
 
     def __init__(self, species, qty, order_type, tax):
-        """Initialize melon order attributes."""
+    """Initialize melon order attributes."""
 
         self.species = species
         self.qty = qty
@@ -179,7 +179,7 @@ class AbstractMelonOrder():
         self.shipped = False
 
     def get_total(self):
-        """Calculate price, including tax."""
+    """Calculate price, including tax."""
 
         base_price = 5
 
@@ -194,7 +194,7 @@ class AbstractMelonOrder():
         return total
 
     def mark_shipped(self):
-        """Record the fact than an order has been shipped."""
+    """Record the fact than an order has been shipped."""
 
         self.shipped = True
 
@@ -207,7 +207,7 @@ class GovernmentMelonOrder(AbstractMelonOrder):
         self.passed_inspection = False
 
     def mark_inspection(self, passed):
-        """Record whether the melon order has passed inspection or not."""
+    """Record whether the melon order has passed inspection or not."""
 
         self.passed_inspection = passed
 
@@ -230,3 +230,49 @@ class InternationalMelonOrder(AbstractMelonOrder):
         """Return the country code."""
 
         return self.country_code     
+
+# part 4 ===============================================================
+# Added a get_base_price method to AbstractMelonOrder. Use get_base_price 
+# in get_total method.
+
+import random
+
+class AbstractMelonOrder():
+    """An abstract base class that other Melon Orders inherit from."""
+
+    def __init__(self, species, qty, order_type, tax):
+    """Initialize melon order attributes."""
+
+        self.species = species
+        self.qty = qty
+        self.order_type = order_type
+        self.tax = tax
+        self.shipped = False
+
+    def get_base_price(self):
+    """Calculate base price using splurge pricing."""
+
+        base_price = random.randrange(5, 10)
+
+        return base_price
+
+    def get_total(self):
+    """Calculate price, including tax."""
+
+        base_price = 5
+
+        if self.species == "Christmas melon":
+            base_price = base_price * 1.5
+
+        total = (1 + self.tax) * self.qty * base_price
+
+        if self.order_type == "international" and self.qty < 10:
+            total += 3
+
+        return total
+
+    def mark_shipped(self):
+    """Record the fact than an order has been shipped."""
+
+        self.shipped = True
+
